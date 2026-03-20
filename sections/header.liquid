@@ -1,63 +1,37 @@
-<header class="site-header site-header-main items-center sticky top-0 z-50" style="background-color: var(--color-carbon); height: 64px; display: flex;">
-  <div class="max-width flex justify-between items-center w-full">
-    <div class="header-left flex items-center">
-      <a href="{{ routes.root_url }}" class="header-logo-link">
-        {%- if section.settings.logo_white != blank -%}
-          <img src="{{ section.settings.logo_white | image_url: height: 36 }}" 
-               alt="{{ shop.name }}" 
-               class="header-logo">
-        {%- else -%}
-          <img src="{{ 'logo-comprita-white.svg' | asset_url }}" 
-               alt="{{ shop.name }}" 
-               class="header-logo">
-        {%- endif -%}
-      </a>
-    </div>
+<header class="header">
+  <div class="header__logo">
+    <a href="{{ routes.root_url }}">
+      <img src="{{ 'logo-comprita-white.svg' | asset_url }}" height="36" alt="Comprita">
+    </a>
+  </div>
 
-    <nav class="header-nav hidden md:flex items-center space-x-8" style="display: flex; gap: 32px;">
-      {%- for link in section.settings.menu.links -%}
-        <a href="{{ link.url }}" class="nav-link text-[13px] font-medium transition-colors" style="color: var(--color-nav-link); font-size: 13px; font-weight: 500;">
-          {{ link.title }}
-        </a>
-      {%- endfor -%}
-    </nav>
+  <ul class="header__nav">
+    {%- for link in section.settings.menu.links -%}
+      <li>
+        <a href="{{ link.url }}">{{ link.title }}</a>
+      </li>
+    {%- endfor -%}
+  </ul>
 
-    <div class="header-actions flex items-center space-x-6" style="display: flex; gap: 24px;">
-      <a href="{{ routes.account_url }}" class="header-action-icon text-white" style="color: white;">
-        {% render 'icon-user' %}
-      </a>
-      <button class="header-action-icon text-white cart-toggle relative" style="color: white; position: relative;">
+  <div class="header__icons">
+    <a href="{{ routes.account_url }}">
+      {% render 'icon-user' %}
+    </a>
+    <div class="cart-toggle-wrapper relative" style="position: relative;">
+      <button class="cart-toggle" aria-label="Cart">
         {% render 'icon-cart' %}
-        <span class="cart-count-badge absolute -top-1 -right-1 bg-brand-accent text-white text-[10px] w-4 h-4 flex items-center justify-center rounded-full" 
-              style="position: absolute; top: -4px; right: -4px; background-color: var(--color-accent); color: white; font-size: 10px; width: 16px; height: 16px; border-radius: 50%; display: {% if cart.item_count > 0 %}flex{% else %}none{% endif %}; align-items: center; justify-content: center;">
+        <span class="cart-count-badge" style="display: {% if cart.item_count > 0 %}flex{% else %}none{% endif %};">
           {{ cart.item_count }}
         </span>
-      </button>
-      <button class="header-action-icon text-white md:hidden menu-toggle" style="color: white;">
-        {% render 'icon-menu' %}
       </button>
     </div>
   </div>
 </header>
 
-<style>
-  .nav-link:hover { color: white !important; }
-  .header-action-icon svg { width: 22px; height: 22px; }
-  
-  @media (max-width: 767px) {
-    .header-nav { display: none !important; }
-  }
-</style>
-
 {% schema %}
 {
   "name": "Header",
   "settings": [
-    {
-      "type": "image_picker",
-      "id": "logo_white",
-      "label": "White Logo"
-    },
     {
       "type": "link_list",
       "id": "menu",

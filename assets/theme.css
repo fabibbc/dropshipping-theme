@@ -125,18 +125,61 @@ button {
     letter-spacing: 0.1em;
 }
 
-.line-clamp-2 {
-    display: -webkit-box;
-    -webkit-line-clamp: 2;
-    -webkit-box-orient: vertical;
-    overflow: hidden;
+/* Header & Navbar */
+.header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0 48px;
+    height: 64px;
+    background: #111111;
+    position: sticky;
+    top: 0;
+    z-index: 100;
 }
 
-/* Specific Components */
+.header__logo img {
+    height: 36px;
+    width: auto;
+    display: block;
+}
+
+.header__nav {
+    display: flex;
+    gap: 32px;
+    list-style: none;
+}
+
+.header__nav a {
+    color: #888888;
+    font-family: 'Inter', sans-serif;
+    font-size: 13px;
+    text-decoration: none;
+    transition: color 200ms;
+}
+
+.header__nav a:hover {
+    color: #FFFFFF;
+}
+
+.header__icons {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+}
+
+.header__icons svg {
+    width: 20px;
+    height: 20px;
+    stroke: #FFFFFF;
+    fill: none;
+    cursor: pointer;
+}
+
 .header-logo {
     height: 36px;
     width: auto;
-    object-contain: contain;
+    object-fit: contain;
 }
 
 .cart-count-badge {
