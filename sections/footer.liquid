@@ -1,0 +1,80 @@
+<footer class="site-footer bg-brand-carbon py-16 text-white" style="background-color: var(--color-carbon); color: white; padding: 64px 0;">
+  <div class="max-width grid grid-cols-1 md:grid-cols-3 gap-12" style="display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 48px;">
+    <div class="footer-col space-y-6">
+      <a href="{{ routes.root_url }}">
+        <img src="{{ 'logo-comprita-white.svg' | asset_url }}" alt="{{ shop.name }}" height="28" style="height: 28px; width: auto;">
+      </a>
+      <p class="text-muted text-[13px] mt-6" style="color: var(--color-nav-link); font-size: 13px; line-height: 1.6;">
+        {{ section.settings.tagline }}
+      </p>
+    </div>
+
+    <div class="footer-col">
+      <h3 class="text-white text-[14px] uppercase tracking-wider mb-6" style="color: white; font-size: 14px; font-weight: 500; text-transform: uppercase; letter-spacing: 0.1em; margin-bottom: 24px;">
+        {{ section.settings.menu_title }}
+      </h3>
+      <ul class="space-y-4" style="list-style: none; padding: 0;">
+        {%- for link in section.settings.footer_menu.links -%}
+          <li style="margin-bottom: 12px;">
+            <a href="{{ link.url }}" class="text-muted text-[13px] hover:text-white transition-colors" style="color: var(--color-nav-link); font-size: 13px;">
+              {{ link.title }}
+            </a>
+          </li>
+        {%- endfor -%}
+      </ul>
+    </div>
+
+    <div class="footer-col">
+      <h3 class="text-white text-[14px] uppercase tracking-wider mb-6" style="color: white; font-size: 14px; font-weight: 500; text-transform: uppercase; letter-spacing: 0.1em; margin-bottom: 24px;">
+        {{ section.settings.payment_title }}
+      </h3>
+      <div class="payment-icons flex gap-4" style="display: flex; gap: 16px;">
+        {%- for type in shop.enabled_payment_types -%}
+          {{ type | payment_type_svg_tag: class: 'payment-icon' }}
+        {%- endfor -%}
+      </div>
+      <div class="mt-8 pt-8 border-t border-white/5" style="margin-top: 32px; padding-top: 32px; border-top: 1px solid rgba(255, 255, 255, 0.05);">
+        <p class="text-white font-medium text-[14px]" style="color: white; font-weight: 500; font-size: 14px;">Envíos a todo Chile</p>
+        <p class="text-muted text-[12px] mt-2" style="color: var(--color-nav-link); font-size: 12px;">Recibe tus productos de forma rápida y segura.</p>
+      </div>
+    </div>
+  </div>
+
+  <div class="max-width mt-16 pt-8 border-t border-[#222222] text-center" style="margin-top: 64px; padding-top: 32px; border-top: 1px solid #222222; text-align: center;">
+    <p class="text-[12px]" style="color: #555555; font-size: 12px;">
+      &copy; {{ 'now' | date: "%Y" }} {{ shop.name }}. Todos los derechos reservados.
+    </p>
+  </div>
+</footer>
+
+{% schema %}
+{
+  "name": "Footer",
+  "settings": [
+    {
+      "type": "textarea",
+      "id": "tagline",
+      "label": "Tagline",
+      "default": "Gadgets para tu hogar que resuelven problemas reales."
+    },
+    {
+      "type": "text",
+      "id": "menu_title",
+      "label": "Menu Title",
+      "default": "Explorar"
+    },
+    {
+      "type": "link_list",
+      "id": "footer_menu",
+      "label": "Footer Menu",
+      "default": "footer"
+    },
+    {
+      "type": "text",
+      "id": "payment_title",
+      "label": "Payment Title",
+      "default": "Medios de Pago"
+    }
+  ]
+}
+{% endschema %}

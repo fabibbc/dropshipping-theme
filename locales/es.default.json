@@ -1,0 +1,43 @@
+{
+    "general": {
+        "404": {
+            "title": "404 Página no encontrada",
+            "subtext": "La página que buscas no existe.",
+            "link": "Volver al inicio"
+        },
+        "accessibility": {
+            "skip_to_content": "Saltar al contenido",
+            "close": "Cerrar",
+            "refresh_page": "Refrescar página"
+        }
+    },
+    "sections": {
+        "header": {
+            "menu": "Menú",
+            "cart_count": {
+                "one": "{{ count }} item",
+                "other": "{{ count }} items"
+            }
+        },
+        "cart": {
+            "title": "Tu carrito",
+            "empty": "Tu carrito está vacío",
+            "continue_shopping": "Continuar comprando",
+            "checkout": "Ir al Checkout",
+            "subtotal": "Subtotal",
+            "remove": "Eliminar"
+        }
+    },
+    "products": {
+        "product": {
+            "add_to_cart": "Agregar",
+            "sold_out": "Agotado",
+            "unavailable": "No disponible",
+            "price": {
+                "from_price_html": "Desde {{ price }}",
+                "regular_price": "Precio habitual",
+                "sale_price": "Precio de oferta"
+            }
+        }
+    }
+}

@@ -1,0 +1,73 @@
+{% comment %}
+    Renders a product card
+    Accepts:
+    - product: {Object} Product object
+{% endcomment %}
+
+<div class="product-card bg-white border border-divider rounded-md overflow-hidden hover:border-accent transition-all duration-300" 
+     style="background-color: var(--color-white); border: 1px solid var(--color-border); border-radius: 4px; overflow: hidden; transition: all 0.3s; height: 100%; display: flex; flex-direction: column;">
+  
+  <a href="{{ product.url }}" class="product-card-image-wrapper block relative aspect-square bg-surface" 
+     style="display: block; position: relative; aspect-ratio: 1/1; background-color: var(--color-surface); padding: 12px; overflow: hidden;">
+    {%- if product.featured_media -%}
+      <img src="{{ product.featured_media | image_url: width: 600, height: 600 }}" 
+           alt="{{ product.title }}" 
+           class="w-full h-full object-contain hover:scale-105 transition-transform duration-500" 
+           style="width: 100%; height: 100%; object-fit: contain; transition: transform 0.5s;">
+    {%- else -%}
+      {{ 'product-1' | placeholder_svg_tag: 'w-full h-full object-contain' }}
+    {%- endif -%}
+  </a>
+
+  <div class="product-card-info p-4 flex flex-col flex-1" style="padding: 16px; flex: 1; display: flex; flex-direction: column;">
+    <a href="{{ product.url }}" class="product-card-title block mb-2 text-[14px] font-medium" 
+       style="font-size: 14px; font-weight: 500; color: var(--color-carbon); margin-bottom: 8px; line-height: 1.4; display: block;">
+      {{ product.title }}
+    </a>
+    
+    <div class="product-card-footer mt-auto pt-4" style="margin-top: auto; padding-top: 16px;">
+      <p class="product-card-price text-accent font-medium text-[15px] mb-4" style="color: var(--color-accent); font-size: 15px; font-weight: 500; margin-bottom: 16px;">
+        {{ product.price | money }}
+      </p>
+
+      <div class="product-card-actions" data-variant-id="{{ product.selected_or_first_available_variant.id }}">
+        {%- assign item_in_cart = false -%}
+        {%- for item in cart.items -%}
+          {%- if item.variant_id == product.selected_or_first_available_variant.id -%}
+            {%- assign item_in_cart = true -%}
+            {%- assign item_qty = item.quantity -%}
+            {%- assign item_key = item.key -%}
+          {%- endif -%}
+        {%- endfor -%}
+
+        <div class="quantity-selector-container {% unless item_in_cart %}hidden{% endunless %}" style="display: {% if item_in_cart %}flex{% else %}none{% endif %}; align-items: center; border: 1px solid var(--color-carbon); border-radius: 3px; height: 42px; overflow: hidden;">
+          <button type="button" class="qty-btn decrement flex-1 h-full flex items-center justify-center hover:bg-carbon hover:text-white" style="flex: 1; height: 100%; display: flex; align-items: center; justify-content: center; cursor: pointer;">
+            {% render 'icon-minus' %}
+          </button>
+          <span class="qty-number text-center w-12 text-[14px] font-medium" style="width: 48px; text-align: center; font-size: 14px; font-weight: 500;">
+            {{ item_qty | default: 0 }}
+          </span>
+          <button type="button" class="qty-btn increment flex-1 h-full flex items-center justify-center hover:bg-carbon hover:text-white" style="flex: 1; height: 100%; display: flex; align-items: center; justify-content: center; cursor: pointer;">
+            {% render 'icon-plus' %}
+          </button>
+        </div>
+
+        <button type="button" 
+                class="btn btn-primary w-full add-to-cart-btn {% if item_in_cart %}hidden{% endif %}" 
+                style="width: 100%; height: 42px; display: {% if item_in_cart %}none{% else %}flex{% endif %}; align-items: center; justify-content: center; background-color: var(--color-carbon); color: white; text-transform: uppercase; font-size: 13px; font-weight: 500; letter-spacing: 0.05em; border-radius: 3px;">
+          Agregar
+        </button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script>
+  // Individual card logic for quantity selector
+  (function() {
+    const card = document.currentScript?.parentElement;
+    if (!card) return;
+    
+    // Logic will be handled in theme.js using event delegation for efficiency
+  })();
+</script>

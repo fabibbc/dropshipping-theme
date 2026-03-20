@@ -1,0 +1,57 @@
+[
+    {
+        "name": "Theme Settings",
+        "settings": [
+            {
+                "type": "header",
+                "content": "Logos"
+            },
+            {
+                "type": "image_picker",
+                "id": "favicon",
+                "label": "Favicon"
+            },
+            {
+                "type": "image_picker",
+                "id": "share_image",
+                "label": "Social Sharing Image"
+            },
+            {
+                "type": "header",
+                "content": "Colors"
+            },
+            {
+                "type": "color",
+                "id": "color_carbon",
+                "label": "Carbon (Primary)",
+                "default": "#111111"
+            },
+            {
+                "type": "color",
+                "id": "color_accent",
+                "label": "Accent (Blue)",
+                "default": "#0066CC"
+            },
+            {
+                "type": "color",
+                "id": "color_surface",
+                "label": "Surface (Light Gray)",
+                "default": "#F8F8F8"
+            },
+            {
+                "type": "header",
+                "content": "Social Media"
+            },
+            {
+                "type": "text",
+                "id": "social_instagram_link",
+                "label": "Instagram Link"
+            },
+            {
+                "type": "text",
+                "id": "social_tiktok_link",
+                "label": "TikTok Link"
+            }
+        ]
+    }
+]

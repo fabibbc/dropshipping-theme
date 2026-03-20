@@ -1,0 +1,69 @@
+<div class="cart-drawer-overlay fixed inset-0 bg-black/50 backdrop-blur-sm z-[100] hidden" style="position: fixed; inset: 0; background: rgba(0,0,0,0.5); backdrop-filter: blur(4px); z-index: 100; cursor: pointer; transition: opacity 0.3s; opacity: 0;"></div>
+
+<div id="CartDrawer" class="cart-drawer fixed top-0 right-0 h-full bg-white shadow-2xl z-[101] flex flex-col transition-transform duration-300 translate-x-full w-full md:w-[400px]" 
+     style="position: fixed; top: 0; right: 0; height: 100%; background: white; box-shadow: -10px 0 30px rgba(0,0,0,0.1); z-index: 101; display: flex; flex-direction: column; transition: transform 0.3s ease; transform: translateX(100%); width: 100%; max-width: 400px; border-left: 1px solid var(--color-border);">
+  
+  <div class="cart-drawer-header flex items-center justify-between p-6 border-b" style="padding: 24px; display: flex; align-items: center; justify-content: space-between; border-bottom: 1px solid var(--color-border);">
+    <h2 class="text-xl font-normal" style="font-family: var(--font-heading); font-size: 24px;">Tu carrito</h2>
+    <button class="cart-drawer-close p-2 hover:bg-surface rounded-full transition-colors" style="padding: 8px; border-radius: 50%; display: flex; align-items: center; justify-content: center;">
+      {% render 'icon-close' %}
+    </button>
+  </div>
+
+  <div class="cart-drawer-items flex-1 overflow-y-auto p-6 space-y-6" style="flex: 1; overflow-y: auto; padding: 24px;">
+    {% comment %} Items are rendered dynamically via AJAX {% endcomment %}
+    <div id="CartDrawerContent">
+      {%- if cart.item_count == 0 -%}
+        <div class="empty-cart text-center py-20 flex flex-col items-center">
+          <div class="mb-4 text-muted">{% render 'icon-cart', size: 48 %}</div>
+          <p class="text-muted mb-6">Tu carrito está vacío</p>
+          <a href="{{ routes.all_products_collection_url }}" class="btn btn-primary">Ver productos</a>
+        </div>
+      {%- else -%}
+        <ul class="cart-items-list" style="list-style: none; padding: 0;">
+          {%- for item in cart.items -%}
+            <li class="cart-item flex gap-4 mb-6" style="display: flex; gap: 16px; margin-bottom: 24px;">
+              <div class="cart-item-image w-20 h-20 bg-surface rounded-sm relative" style="width: 80px; height: 80px; background: var(--color-surface); border-radius: 4px; overflow: hidden; flex-shrink: 0;">
+                <img src="{{ item.image | image_url: width: 200 }}" alt="{{ item.product.title }}" class="w-full h-full object-cover">
+              </div>
+              <div class="cart-item-details flex-1 flex flex-col" style="flex: 1; display: flex; flex-direction: column;">
+                <h3 class="text-[14px] font-medium mb-1" style="font-size: 14px; font-weight: 500; margin-bottom: 4px;">{{ item.product.title }}</h3>
+                <p class="text-[13px] text-accent font-medium mb-3" style="font-size: 13px; color: var(--color-accent); font-weight: 500; margin-bottom: 12px;">{{ item.final_price | money }}</p>
+                <div class="flex items-center justify-between" style="display: flex; align-items: center; justify-content: space-between;">
+                  <div class="qty-control flex items-center border rounded-sm h-8" style="display: flex; align-items: center; border: 1px solid var(--color-border); border-radius: 3px; height: 32px;">
+                    <button class="qty-minus px-2" data-key="{{ item.key }}" data-qty="{{ item.quantity | minus: 1 }}">{% render 'icon-minus', size: 12 %}</button>
+                    <span class="qty-val px-2 text-[12px] min-w-[20px] text-center">{{ item.quantity }}</span>
+                    <button class="qty-plus px-2" data-key="{{ item.key }}" data-qty="{{ item.quantity | plus: 1 }}">{% render 'icon-plus', size: 12 %}</button>
+                  </div>
+                  <button class="remove-item text-muted hover:text-carbon" data-key="{{ item.key }}">
+                    {% render 'icon-trash', size: 18 %}
+                  </button>
+                </div>
+              </div>
+            </li>
+          {%- endfor -%}
+        </ul>
+      {%- endif -%}
+    </div>
+  </div>
+
+  {%- if cart.item_count > 0 -%}
+    <div id="CartDrawerFooter" class="cart-drawer-footer p-6 border-t bg-white" style="padding: 24px; border-top: 1px solid var(--color-border); background: white;">
+      <div class="flex justify-between items-center mb-6" style="display: flex; align-items: center; justify-content: space-between; margin-bottom: 24px;">
+        <span class="text-sm">Total</span>
+        <span class="text-xl font-normal" style="font-family: var(--font-heading); font-size: 24px;">{{ cart.total_price | money }}</span>
+      </div>
+      <form action="{{ routes.cart_url }}" method="post" id="cart-drawer-form">
+        <button type="submit" name="checkout" class="btn btn-primary w-full py-4 text-[16px] rounded-sm" style="width: 100%; border-radius: 3px; font-size: 16px;">
+          Ir al Checkout
+        </button>
+      </form>
+    </div>
+  {%- endif -%}
+</div>
+
+<style>
+  body.cart-drawer-open { overflow: hidden; }
+  body.cart-drawer-open .cart-drawer-overlay { display: block; opacity: 1; }
+  body.cart-drawer-open .cart-drawer { transform: translateX(0); }
+</style>

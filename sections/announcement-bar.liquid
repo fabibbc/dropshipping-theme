@@ -1,0 +1,28 @@
+{%- if section.settings.show_announcement -%}
+  <div class="announcement-bar bg-brand-carbon text-white py-2 text-center text-[12px] font-medium" 
+       style="background-color: var(--color-carbon); color: white; padding: 8px 0; text-align: center; font-size: 12px; font-weight: 500;">
+    <div class="max-width">
+      {{ section.settings.text }}
+    </div>
+  </div>
+{%- endif -%}
+
+{% schema %}
+{
+  "name": "Announcement Bar",
+  "settings": [
+    {
+      "type": "checkbox",
+      "id": "show_announcement",
+      "label": "Show announcement",
+      "default": true
+    },
+    {
+      "type": "text",
+      "id": "text",
+      "label": "Text",
+      "default": "Envíos a todo Chile 🇨🇱"
+    }
+  ]
+}
+{% endschema %}

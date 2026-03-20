@@ -1,0 +1,74 @@
+<section class="affiliate-products py-24 bg-white" style="background-color: var(--color-white); padding: 96px 0;">
+  <div class="max-width">
+    <div class="section-header mb-12" style="margin-bottom: 48px;">
+      <h2 class="text-[32px] mb-4">{{ section.settings.title }}</h2>
+      <p class="text-muted text-[15px]">{{ section.settings.subtitle }}</p>
+    </div>
+
+    <div class="product-grid grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4" style="display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 16px;">
+      {%- for block in section.blocks -%}
+        <div class="grid-item">
+          {% render 'affiliate-card', 
+             title: block.settings.title, 
+             price: block.settings.price, 
+             image_url: block.settings.image_url, 
+             affiliate_link: block.settings.affiliate_link 
+          %}
+        </div>
+      {%- endfor -%}
+    </div>
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "Affiliate Products",
+  "settings": [
+    {
+      "type": "text",
+      "id": "title",
+      "label": "Title",
+      "default": "También en Mercado Libre"
+    },
+    {
+      "type": "textarea",
+      "id": "subtitle",
+      "label": "Subtitle",
+      "default": "Encuentra estos productos con envío rápido."
+    }
+  ],
+  "blocks": [
+    {
+      "type": "product",
+      "name": "Product",
+      "settings": [
+        {
+          "type": "text",
+          "id": "title",
+          "label": "Product Title"
+        },
+        {
+          "type": "number",
+          "id": "price",
+          "label": "Price (without separators)"
+        },
+        {
+          "type": "text",
+          "id": "image_url",
+          "label": "Image URL"
+        },
+        {
+          "type": "url",
+          "id": "affiliate_link",
+          "label": "Affiliate Link"
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "Affiliate Products"
+    }
+  ]
+}
+{% endschema %}

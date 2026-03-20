@@ -1,0 +1,10 @@
+{
+    "current": "Default",
+    "presets": {
+        "Default": {
+            "color_carbon": "#111111",
+            "color_accent": "#0066CC",
+            "color_surface": "#F8F8F8"
+        }
+    }
+}

@@ -1,0 +1,99 @@
+<section class="hero bg-white py-24 md:py-32" style="background-color: var(--color-white); padding: 96px 0; border-bottom: 1px solid var(--color-border);">
+  <div class="max-width grid grid-cols-1 md:grid-cols-2 gap-12 items-center" style="display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 48px; align-items: center;">
+    <div class="hero-content">
+      <span class="hero-eyebrow text-accent uppercase tracking-widest block mb-6" style="color: var(--color-accent); font-size: 11px; font-weight: 500; text-transform: uppercase; letter-spacing: 0.1em; margin-bottom: 16px; display: block;">
+        {{ section.settings.eyebrow }}
+      </span>
+      <h1 class="hero-title text-[56px] leading-[1.1] mb-8" style="font-size: 56px; line-height: 1.1; margin-bottom: 24px;">
+        {{ section.settings.title }}
+      </h1>
+      <p class="hero-subtitle text-muted text-[16px] max-w-[480px] mb-12" style="color: var(--color-muted); font-size: 16px; max-width: 480px; margin-bottom: 40px;">
+        {{ section.settings.subtitle }}
+      </p>
+      <div class="hero-btns flex gap-4" style="display: flex; gap: 16px;">
+        <a href="{{ section.settings.primary_link }}" class="btn btn-primary">
+          {{ section.settings.primary_label }}
+        </a>
+        <a href="{{ section.settings.secondary_link }}" class="btn btn-secondary">
+          {{ section.settings.secondary_label }}
+        </a>
+      </div>
+    </div>
+    <div class="hero-image">
+      {%- if section.settings.image != blank -%}
+        <div class="aspect-ratio-box rounded-sm overflow-hidden border border-divider" style="aspect-ratio: 4/3; background-color: var(--color-surface); border: 1px solid var(--color-border); border-radius: 4px; overflow: hidden;">
+          <img src="{{ section.settings.image | image_url: width: 1200 }}" 
+               alt="{{ section.settings.title }}" 
+               class="w-full h-full object-cover">
+        </div>
+      {%- else -%}
+        <div class="aspect-ratio-box rounded-sm bg-surface border border-divider" style="aspect-ratio: 4/3; background-color: var(--color-surface); border: 1px solid var(--color-border); border-radius: 4px;"></div>
+      {%- endif -%}
+    </div>
+  </div>
+</section>
+
+<style>
+  @media (max-width: 767px) {
+    .hero-title { font-size: 36px !important; }
+    .hero { padding: 64px 0 !important; }
+  }
+</style>
+
+{% schema %}
+{
+  "name": "Hero",
+  "settings": [
+    {
+      "type": "text",
+      "id": "eyebrow",
+      "label": "Eyebrow",
+      "default": "Gadgets para tu hogar"
+    },
+    {
+      "type": "textarea",
+      "id": "title",
+      "label": "Title",
+      "default": "Productos que hacen la diferencia"
+    },
+    {
+      "type": "textarea",
+      "id": "subtitle",
+      "label": "Subtitle",
+      "default": "Selección curada de gadgets que resuelven problemas reales. Envío rápido a todo Chile."
+    },
+    {
+      "type": "image_picker",
+      "id": "image",
+      "label": "Image"
+    },
+    {
+      "type": "text",
+      "id": "primary_label",
+      "label": "Primary Button Label",
+      "default": "Ver productos"
+    },
+    {
+      "type": "url",
+      "id": "primary_link",
+      "label": "Primary Button Link"
+    },
+    {
+      "type": "text",
+      "id": "secondary_label",
+      "label": "Secondary Button Label",
+      "default": "Catálogo ML"
+    },
+    {
+      "type": "url",
+      "id": "secondary_link",
+      "label": "Secondary Button Link"
+    }
+  ],
+  "presets": [
+    {
+      "name": "Hero"
+    }
+  ]
+}
+{% endschema %}

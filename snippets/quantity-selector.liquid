@@ -1,0 +1,15 @@
+{% comment %} quantity-selector.liquid {% endcomment %}
+<div class="quantity-selector flex items-center border border-divider rounded-sm" style="display: flex; align-items: center; border: 1px solid var(--color-border); border-radius: 3px; height: 42px;">
+  <button type="button" class="qty-btn decrement px-4 hover:bg-surface h-full flex items-center" aria-label="Decrease quantity">
+    {% render 'icon-minus' %}
+  </button>
+  <input type="number" 
+         name="quantity" 
+         value="1" 
+         min="1" 
+         class="qty-input w-12 text-center text-sm font-medium border-none h-full outline-none" 
+         style="width: 48px; text-align: center; border: none; font-size: 14px; outline: none;">
+  <button type="button" class="qty-btn increment px-4 hover:bg-surface h-full flex items-center" aria-label="Increase quantity">
+    {% render 'icon-plus' %}
+  </button>
+</div>
